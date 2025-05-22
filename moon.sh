@@ -2,7 +2,7 @@
 rm -rf AnyKernel
 
 # Set Telegram token (should be stored as secret in real use)
-export TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}
+export TOKEN="$TELEGRAM_BOT_TOKEN"
 
 function compile() 
 {
