@@ -5,7 +5,7 @@ set -e
 rm -rf AnyKernel
 
 # Use Telegram token from GitHub Actions environment
-echo "Using TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:+***}"
+echo "Using TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}"
 export TOKEN="$TELEGRAM_BOT_TOKEN"
 
 # Path to your kernel root (assumed to be current directory)
