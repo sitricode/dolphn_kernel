@@ -1,0 +1,37 @@
+name: Android Kernel Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout your repo
+      uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y bc bison build-essential curl flex git kmod libssl-dev libncurses5-dev \
+          libelf-dev libtool python3 unzip wget ccache
+
+    - name: Set up ccache
+      run: |
+        sudo ln -s /usr/bin/ccache /usr/lib/ccache/cc
+        sudo ln -s /usr/bin/ccache /usr/lib/ccache/gcc
+        sudo ln -s /usr/bin/ccache /usr/lib/ccache/g++
+        ccache -M 120G
+
+    - name: Make script executable
+      run: chmod +x moon.sh
+
+    - name: Run build script
+      run: ./moon.sh
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Kernel-Zip
+        path: AnyKernel/*.zip
