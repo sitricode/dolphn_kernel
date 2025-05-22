@@ -50,5 +50,4 @@ function teleup()
 }
 
 compile
-zupload
 teleup
