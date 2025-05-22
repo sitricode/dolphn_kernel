@@ -19,9 +19,6 @@ jobs:
 
     - name: Set up ccache
       run: |
-        sudo ln -s /usr/bin/ccache /usr/lib/ccache/cc
-        sudo ln -s /usr/bin/ccache /usr/lib/ccache/gcc
-        sudo ln -s /usr/bin/ccache /usr/lib/ccache/g++
         ccache -M 120G
 
     - name: Make script executable
