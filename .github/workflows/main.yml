@@ -26,6 +26,8 @@ jobs:
 
     - name: Run build script
       run: ./moon.sh
+      env:
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
