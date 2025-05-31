@@ -36,7 +36,7 @@ function compile() {
     cp susfs4ksu/kernel_patches/KernelSU/10_enable_susfs_for_ksu.patch $KERNEL_ROOT/KernelSU-Next/
 
     # Determine kernel version for patch filename
-    KVER=$(make -sC "$KERNEL_ROOT" kernelversion)
+    KVER="4.14"
     cp susfs4ksu/kernel_patches/50_add_susfs_in_kernel-${KVER}.patch $KERNEL_ROOT/
 
     # Copy filesystem and include patches
