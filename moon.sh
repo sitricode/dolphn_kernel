@@ -28,6 +28,7 @@ function compile() {
     git clone --depth=1 https://github.com/MayuriLabs/linaro_arm-linux-gnueabihf-7.5 los-4.9-32
 
     # Clone SUSFS patches (simonpunk)
+    curl -LSs "https://raw.githubusercontent.com/rifsxd/KernelSU-Next/next-susfs/kernel/setup.sh" | bash -s next-susfs
     git clone --depth=1 --branch kernel-4.14 https://gitlab.com/simonpunk/susfs4ksu.git susfs4ksu
 
     # Apply SUSFS kernel patches
@@ -43,7 +44,7 @@ function compile() {
     cp susfs4ksu/kernel_patches/include/linux/* $KERNEL_ROOT/include/linux/
 
     # Apply patches
-    cd $KERNEL_ROOT/KernelSU
+    cd $KERNEL_ROOT/KernelSU-Next
     patch -p1 < 10_enable_susfs_for_ksu.patch
     cd $KERNEL_ROOT
     patch -p1 < 50_add_susfs_in_kernel-${KVER}.patch || echo "Some hunks failed; please patch manually."
