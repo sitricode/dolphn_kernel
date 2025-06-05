@@ -69,12 +69,11 @@ function compile() {
         CONFIG_NO_ERROR_ON_MISMATCH=y
 }
 
-export KERNEL_NAMEZ="X-DolphinKernel-v4.14.265"
+export KERNEL_NAMEZ="X-DolphinKernel-265"
 function zupload() {
     git clone --depth=1 https://github.com/DPSLEGEND/Anykernel3.git -b moon AnyKernel
     cp out/arch/arm64/boot/Image.gz-dtb AnyKernel
-    cd AnyKernel
-    zip -r9 "${KERNEL_NAMEZ}.zip" *
+    zip -r9 "${KERNEL_NAMEZ}.zip" AnyKernel/*
 }
 
 function teleup() {
