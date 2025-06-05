@@ -1,6 +1,14 @@
 #!/bin/bash
 set -e
 
+required_vars=("TELEGRAM_BOT_TOKEN")
+
+for var in "${required_vars[@]}"; do
+    if [[ -z ${!var:-} ]]; then
+        echo "$var is not set!"
+        exit 1
+    fi
+done
 # Clean any previous AnyKernel directory
 rm -rf AnyKernel
 
