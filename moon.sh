@@ -13,21 +13,9 @@ KERNEL_ROOT="$PWD"
 
 echo "Kernel root: $KERNEL_ROOT"
 
-function compile() {
-    source ~/.bashrc && source ~/.profile
-    export LC_ALL=C
-    export USE_CCACHE=1
-    ccache -M 120G
-    export ARCH=arm64
-    export KBUILD_BUILD_HOST=Radiata
-    export KBUILD_BUILD_USER="wein"
 
-    # Clone toolchains
-    git clone --depth=1 https://github.com/sarthakroy2002/android_prebuilts_clang_host_linux-x86_clang-6443078 clang
-    git clone --depth=1 https://github.com/ghostrider-reborn/prebuilts_gcc_linux-x86_aarch64_aarch64-linaro-7 los-4.9-64
-    git clone --depth=1 https://github.com/MayuriLabs/linaro_arm-linux-gnueabihf-7.5 los-4.9-32
 
-    # Clone SUSFS patches (simonpunk, kernel-4.14 branch)
+function patchsus(){
     git clone --depth=1 -b kernel-4.14 https://gitlab.com/simonpunk/susfs4ksu.git susfs4ksu
 
     # Apply SUSFS kernel patches
@@ -40,6 +28,22 @@ function compile() {
     patch -p1 < 10_enable_susfs_for_ksu.patch
     cd $KERNEL_ROOT
     patch -p1 < 50_add_susfs_in_kernel-4.14.patch || echo "Some hunks failed; please patch manually."
+}
+function compile() {
+    source ~/.bashrc && source ~/.profile
+    export LC_ALL=C
+    export USE_CCACHE=1
+    ccache -M 120G
+    export ARCH=arm64
+    export KBUILD_BUILD_HOST=Radiata
+    export KBUILD_BUILD_USER="wein"
+
+    # Clone toolchains
+    git clone --depth=1 https://github.com/sarthakroy2002/android_prebuilts_clang_host_linux-x86_clang-6443078 clang
+    git clone --depth=1 https://gitlab.com/firefly-linux/prebuilts/gcc/linux-x86/aarch64/gcc-linaro-6.3.1-2017.05-x86_64_aarch64-linux-gnu los-4.9-64
+    git clone --depth=1 https://github.com/MayuriLabs/linaro_arm-linux-gnueabihf-7.5 los-4.9-32
+
+    curl -LSs "https://raw.githubusercontent.com/rifsxd/KernelSU-Next/next/kernel/setup.sh" | bash -
 
     # Clean build environment
     make O=out ARCH=arm64 mrproper
@@ -73,7 +77,3 @@ function teleup() {
 compile
 zupload
 teleup
-
-
-I’ve updated all references from KernelSU to KernelSU-Next to reflect the correct folder name for KernelSU Next. Let me know if you need further adjustments or additional patch handling.
-
