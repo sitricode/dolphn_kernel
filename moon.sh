@@ -77,7 +77,7 @@ function zupload() {
 }
 
 function teleup() {
-    curl -v -F "chat_id=1478995427" -F document=@"AnyKernel/${KERNEL_NAMEZ}.zip" https://api.telegram.org/bot$TOKEN/sendDocument
+    curl -v -F "chat_id=1478995427" -F document=@"${KERNEL_NAMEZ}.zip" https://api.telegram.org/bot$TOKEN/sendDocument
 }
 
 compile
