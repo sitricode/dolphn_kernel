@@ -73,7 +73,8 @@ export KERNEL_NAMEZ="X-DolphinKernel-265"
 function zupload() {
     git clone --depth=1 https://github.com/sitricode/Anykernel3 -b mastah AnyKernel
     cp out/arch/arm64/boot/Image.gz-dtb AnyKernel
-    zip -r9 "${KERNEL_NAMEZ}.zip" AnyKernel/*
+    cd AnyKernel
+    zip -r9 "${KERNEL_NAMEZ}.zip" *
 }
 
 function teleup() {
